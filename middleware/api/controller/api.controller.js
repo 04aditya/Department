@@ -67,6 +67,21 @@ exports.renderDevicesQuery = function (query,callback){
 	}
 }
 
+exports.renderAllDevicesQuery = function (query,callback){
+	if(isValidAPIKey(query)){
+		var sql = "SELECT * FROM devices";
+		var params = { };
+		runDbQuery(sql,params,function(data){
+			callback && callback(data);
+		});
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+
 exports.renderRoomsQuery = function (query,callback){
 	if(isValidAPIKey(query)){
 		if( query.id != null && query.id != undefined ){
@@ -107,10 +122,131 @@ exports.renderSessionsQuery = function (query,callback){
 	}
 }
 
+exports.renderEventsQuery = function (query,callback){
+	if(isValidAPIKey(query)){
+		if( query.id != null && query.id != undefined ){
+			var sql = "SELECT * FROM events WHERE id = $id";
+			var params = { $id : query.id };
+			runDbQuery(sql,params,function(data){
+				callback && callback(data);
+			});
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.renderSemieventsQuery = function (query,callback){
+	if(isValidAPIKey(query)){
+		if( query.id != null && query.id != undefined ){
+			var sql = "SELECT * FROM semievents WHERE id = $id";
+			var params = { $id : query.id };
+			runDbQuery(sql,params,function(data){
+				callback && callback(data);
+			});
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.renderAllSemieventsQuery = function (query,callback){
+	if(isValidAPIKey(query)){
+		var sql = "SELECT * FROM semievents";
+		var params = { };
+		runDbQuery(sql,params,function(data){
+			callback && callback(data);
+		});
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.renderAllEventsQuery = function (query,callback){
+	if(isValidAPIKey(query)){
+		var sql = "SELECT * FROM events";
+		var params = { };
+		runDbQuery(sql,params,function(data){
+			callback && callback(data);
+		});
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.updateExpTimeEvent = function(query,callback){
+	if(isValidAPIKey(query)){
+		if( query.id != null && query.exp_time != null){
+			var sql = "UPDATE event SET exp_time = $exp_time WHERE event_id = $id";//parseInt?
+			var params = { $id : query.id, $exp_time : query.exp_time};
+			logSqlQuery(sql,params);
+			db.run(sql,params,function(err){
+				if(err == null && this.changes > 0){
+					callback && callback(true);
+				}
+				else{
+					callback && callback(err);
+				}
+			})
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.updateExpTimeSemievent = function(query,callback){
+	if(isValidAPIKey(query)){
+		if( query.id != null && query.exp_time != null){
+			var sql = "UPDATE semievent SET exp_time = $exp_time WHERE clause_id = $id";//parseInt?
+			var params = { $id : query.id, $exp_time : query.exp_time};
+			logSqlQuery(sql,params);
+			db.run(sql,params,function(err){
+				if(err == null && this.changes > 0){
+					callback && callback(true);
+				}
+				else{
+					callback && callback(err);
+				}
+			})
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+
 exports.addSessionData = function(query,callback){
 	if(isValidAPIKey(query)){
 		if( query.session_id != null && query.energy_consumption != null && query.time != null ){
-			var sql = "UPDATE sessions SET energy_consumption = energy_consumption+$consumption, time = time+$time  WHERE id = $id";
+			var sql = "UPDATE sessions SET energy_consumption = energy_consumption+$consumption, time = time+$time  WHERE id = $id";//parseInt?
 			var params = { $id : query.session_id, $consumption : query.energy_consumption, $time : query.time };
 			logSqlQuery(sql,params);
 			db.run(sql,params,function(err){
@@ -132,6 +268,59 @@ exports.addSessionData = function(query,callback){
 		callback && callback(response);
 	}
 }
+
+exports.InsertSemievent = function(query,callback){
+	if(isValidAPIKey(query)){
+		if( query.device != null && query.energy != null && query.time != null && query.room != null && query.energytype != null && query.timetype != null && query.exp_time != null && query.clause_id != null && query.event_id != null){
+			var sql = "Insert into semievents VALUES ($device,$room,$time,$energy,$timetype,$energytype,$exp_time,$clause_id,$event_id)";
+			var params = { $id : query.clause_id, $energy : query.energy, $time : query.time, $timetype : query.timetype, $energytype : query.energytype, $exp_time : query.exp_time, $room : query.room, $event_id : query.event_id};
+			logSqlQuery(sql,params);
+			db.run(sql,params,function(err){
+				if(err == null && this.changes > 0){
+					callback && callback(true);
+				}
+				else{
+					callback && callback(err);
+				}
+			})
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
+exports.InsertEvent = function(query,callback){
+	if(isValidAPIKey(query)){
+		if( query.eventName!=null && query.action!=null && query.exp_time != null && query.event_id != null){
+			var sql = "Insert into semievents VALUES ($eventName,$action,$exp_time,$event_id)";
+			var params = { $eventName : query.eventName, $action : query.action, $exp_time : query.exp_time, $room : query.room};
+			logSqlQuery(sql,params);
+			db.run(sql,params,function(err){
+				if(err == null && this.changes > 0){
+					callback && callback(true);
+				}
+				else{
+					callback && callback(err);
+				}
+			})
+		}
+		else{
+			response = invalidParamsError();
+			callback && callback(response);
+		}
+	}
+	else{
+		response = invalidAPIKeyError();
+		callback && callback(response);
+	}
+}
+
 
 /************************
 Database Functions

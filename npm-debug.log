@@ -1,0 +1,68 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   '--proxy',
+1 verbose cli   'http://09005001@i-amagoonar@localhost:80',
+1 verbose cli   'install',
+1 verbose cli   'eventemitter' ]
+2 info using npm@1.2.17
+3 info using node@v0.10.3
+4 verbose read json /home/aditya/Department/package.json
+5 verbose read json /home/aditya/Department/node_modules/express/package.json
+6 verbose read json /home/aditya/Department/node_modules/oauth2-provider/package.json
+7 verbose read json /home/aditya/Department/node_modules/socket.io/package.json
+8 verbose read json /home/aditya/Department/node_modules/socket.io-client/package.json
+9 verbose read json /home/aditya/Department/node_modules/sqlite3/package.json
+10 verbose read json /home/aditya/Department/package.json
+11 verbose cache add [ 'eventemitter', null ]
+12 verbose cache add name=undefined spec="eventemitter" args=["eventemitter",null]
+13 verbose parsed url { protocol: null,
+13 verbose parsed url   slashes: null,
+13 verbose parsed url   auth: null,
+13 verbose parsed url   host: null,
+13 verbose parsed url   port: null,
+13 verbose parsed url   hostname: null,
+13 verbose parsed url   hash: null,
+13 verbose parsed url   search: null,
+13 verbose parsed url   query: null,
+13 verbose parsed url   pathname: 'eventemitter',
+13 verbose parsed url   path: 'eventemitter',
+13 verbose parsed url   href: 'eventemitter' }
+14 silly lockFile 778f2c0e-eventemitter eventemitter
+15 verbose lock eventemitter /home/aditya/.npm/778f2c0e-eventemitter.lock
+16 silly lockFile 778f2c0e-eventemitter eventemitter
+17 silly lockFile 778f2c0e-eventemitter eventemitter
+18 verbose addNamed [ 'eventemitter', '' ]
+19 verbose addNamed [ null, '' ]
+20 silly lockFile 499d7168-eventemitter eventemitter@
+21 verbose lock eventemitter@ /home/aditya/.npm/499d7168-eventemitter.lock
+22 silly addNameRange { name: 'eventemitter', range: '', hasData: false }
+23 verbose url raw eventemitter
+24 verbose url resolving [ 'http://registry.npmjs.org/', './eventemitter' ]
+25 verbose url resolved http://registry.npmjs.org/eventemitter
+26 info trying registry request attempt 1 at 21:29:21
+27 http GET http://registry.npmjs.org/eventemitter
+28 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+29 info trying registry request attempt 2 at 21:29:42
+30 http GET http://registry.npmjs.org/eventemitter
+31 info retry will retry, error on last attempt: Error: getaddrinfo ENOTFOUND
+32 info trying registry request attempt 3 at 21:30:52
+33 http GET http://registry.npmjs.org/eventemitter
+34 silly lockFile 499d7168-eventemitter eventemitter@
+35 silly lockFile 499d7168-eventemitter eventemitter@
+36 error Error: getaddrinfo ENOTFOUND
+36 error     at errnoException (dns.js:37:11)
+36 error     at Object.onanswer [as oncomplete] (dns.js:124:16)
+37 error If you need help, you may report this log at:
+37 error     <http://github.com/isaacs/npm/issues>
+37 error or email it to:
+37 error     <npm-@googlegroups.com>
+38 error System Linux 2.6.32-33-generic
+39 error command "/usr/local/bin/node" "/usr/local/bin/npm" "--proxy" "http://09005001@i-amagoonar@localhost:80" "install" "eventemitter"
+40 error cwd /home/aditya/Department
+41 error node -v v0.10.3
+42 error npm -v 1.2.17
+43 error syscall getaddrinfo
+44 error code ENOTFOUND
+45 error errno ENOTFOUND
+46 verbose exit [ 1, true ]
